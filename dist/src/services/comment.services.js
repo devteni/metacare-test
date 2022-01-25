@@ -14,14 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchComments = exports.addComment = void 0;
 const client_1 = require("@prisma/client");
+const axios_1 = __importDefault(require("axios"));
+const constants_1 = require("../constants");
 const logger_1 = __importDefault(require("../utils/logger"));
 const prisma = new client_1.PrismaClient();
 const addComment = (movieId, comment) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const commentData = {
-            movieId: movieId,
-            comment: comment,
-        };
         const validMovieId = yield prisma.movie.findFirst({
             where: {
                 id: {
@@ -29,6 +27,14 @@ const addComment = (movieId, comment) => __awaiter(void 0, void 0, void 0, funct
                 },
             },
         });
+        const commenterIp = yield axios_1.default.get(constants_1.getIp);
+        const { data } = commenterIp;
+        typeof commenterIp === 'string' ? commenterIp : '';
+        const commentData = {
+            movieId: movieId,
+            comment: comment,
+            ip_address: data,
+        };
         if (!validMovieId)
             return {
                 status: 'success',

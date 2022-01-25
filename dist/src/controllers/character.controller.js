@@ -12,17 +12,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchMovies = void 0;
-const axios_1 = __importDefault(require("axios"));
-const fetchMovies = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const res = yield axios_1.default.get('https://swapi.py4e.com/films');
-        const { data: { data } } = res;
-        return data;
+const character_services_1 = require("../services/character.services");
+const logger_1 = __importDefault(require("../utils/logger"));
+class CharacterController {
+    constructor() {
+        this.getCharacters = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { sortby, dir, filter } = req.query;
+                const chars = yield (0, character_services_1.getChars)(sortby, dir, filter);
+                const { code, status, data, metadata } = chars;
+                return res.status(code).json({
+                    status,
+                    metadata,
+                    data,
+                });
+            }
+            catch (err) {
+                logger_1.default.info(err);
+            }
+        });
     }
-    catch (err) {
-        console.log(err);
-    }
-});
-exports.fetchMovies = fetchMovies;
-//# sourceMappingURL=fetchMovies.js.map
+}
+exports.default = new CharacterController();
+//# sourceMappingURL=character.controller.js.map

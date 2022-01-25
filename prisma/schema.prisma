@@ -31,6 +31,7 @@ model Character {
 model Comment {
   id Int @id @default(autoincrement())
   comment String @db.LongText()
+  ip_address String
   movie Movie @relation(fields: [movieId], references: [id])
   movieId Int
   createdAt DateTime @default(now())

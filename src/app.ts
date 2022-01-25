@@ -1,16 +1,24 @@
-import express, { Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
+import YAML from 'yamljs';
 import swaggerUi from 'swagger-ui-express';
 import morgan from 'morgan';
 import apiRoutes from './routes/index.routes';
 
-const app = express();
-
-// Load swagger definitions
-// const swaggerDefs =
+const app: Application = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
+app.use(express.static('public'));
+
+const swaggerJSDoc = YAML.load(`${process.cwd()}/docs.yaml`);
+
+app.use(
+  '/docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerJSDoc, { explorer: true }),
+);
+
 app.use('/api/v1', apiRoutes);
 
 app.get('/', (req: Request, res: Response) => {

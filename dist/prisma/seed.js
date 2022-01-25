@@ -20,11 +20,11 @@ const seedDB = () => __awaiter(void 0, void 0, void 0, function* () {
             const movieData = {
                 title: movie.title,
                 release_date: movie.release_date,
-                opening_crawl: movie.opening_crawl
+                opening_crawl: movie.opening_crawl,
             };
             // save movie data in db
             const savedMovie = yield prisma.movie.create({
-                data: movieData
+                data: movieData,
             });
             for (const character of movie.characters) {
                 yield (0, helpers_1.seedChar)(character, savedMovie.id);

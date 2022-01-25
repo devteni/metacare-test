@@ -11,12 +11,12 @@ export const seedDB = async () => {
       const movieData = {
         title: movie.title,
         release_date: movie.release_date,
-        opening_crawl: movie.opening_crawl
+        opening_crawl: movie.opening_crawl,
       };
 
       // save movie data in db
       const savedMovie = await prisma.movie.create({
-        data: movieData
+        data: movieData,
       });
 
       for (const character of movie.characters) {
