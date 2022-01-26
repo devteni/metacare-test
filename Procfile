@@ -1,1 +1,1 @@
-web: yarn run prod
+web: node dist/src/server.js
