@@ -22,6 +22,7 @@ winston.addColors({
   info: 'green',
   error: 'red',
 });
+
 logger.on('error', (err: any) => console.error(err.message));
 
 export default logger;
