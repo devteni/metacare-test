@@ -4,6 +4,7 @@
     "dev": "nodemon dist/src/server.js",
     "prod": "node dist/src/server.js",
     "prisma:generate": "npx prisma generate",
+    "postinstall": "yarn run prisma:generate",
     "migrate": "npx prisma migrate dev",
     "db:seed": "npx prisma db seed",
     "lint": "eslint . --ext .ts"
