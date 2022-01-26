@@ -1,12 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Book` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-DROP TABLE `Book`;
-
 -- CreateTable
 CREATE TABLE `Movie` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
@@ -19,7 +10,7 @@ CREATE TABLE `Movie` (
 
 -- CreateTable
 CREATE TABLE `Character` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `height` VARCHAR(191) NOT NULL,
     `gender` VARCHAR(191) NOT NULL,
@@ -32,6 +23,7 @@ CREATE TABLE `Character` (
 CREATE TABLE `Comment` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `comment` LONGTEXT NOT NULL,
+    `ip_address` VARCHAR(191) NOT NULL,
     `movieId` INTEGER NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
