@@ -2,10 +2,14 @@
   "scripts": {
     "watch": "tsc -w",
     "dev": "nodemon dist/src/server.js",
+    "prod": "node dist/src/server.js",
     "prisma:generate": "npx prisma generate",
     "migrate": "npx prisma migrate dev",
     "db:seed": "npx prisma db seed",
     "lint": "eslint . --ext .ts"
+  },
+  "engines": {
+    "yarn": "1.22.17"
   },
   "dependencies": {
     "@prisma/client": "^3.8.1",
@@ -21,8 +25,7 @@
     "morgan": "^1.10.0",
     "prettier": "^2.5.1",
     "swagger-ui-express": "^4.3.0",
-    "tsc": "^2.0.4",
-    "tsoa": "^3.14.1"
+    "tsc": "^2.0.4"
   },
   "devDependencies": {
     "@types/morgan": "^1.9.3",

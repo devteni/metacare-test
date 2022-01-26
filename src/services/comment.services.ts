@@ -1,14 +1,12 @@
 import { PrismaClient } from '@prisma/client';
+import axios from 'axios';
+import { getIp } from '../constants';
 import logger from '../utils/logger';
 
 const prisma = new PrismaClient();
 
 export const addComment = async (movieId: number, comment: string) => {
   try {
-    const commentData = {
-      movieId: movieId,
-      comment: comment,
-    };
     const validMovieId = await prisma.movie.findFirst({
       where: {
         id: {
@@ -17,6 +15,14 @@ export const addComment = async (movieId: number, comment: string) => {
       },
     });
 
+    const commenterIp = await axios.get(getIp);
+    const { data } = commenterIp;
+    typeof commenterIp === 'string' ? commenterIp : '';
+    const commentData = {
+      movieId: movieId,
+      comment: comment,
+      ip_address: data,
+    };
     if (!validMovieId)
       return {
         status: 'success',

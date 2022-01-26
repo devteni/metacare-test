@@ -1,0 +1,157 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/devteni/metacare-test/1.0.0
+info:
+  description: API for metacare-test
+  version: "1.0.0"
+  title: metacare-test API
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+paths:
+  /movies:
+    get:
+      tags:
+        - movies
+      summary: lists all the movies alongside their opening crawls
+      operationId: listMovies
+      description: |
+        This endpoint lists all the movies available on the API alongside their opening crawls and comment counts.
+        |
+      responses:
+        '200':
+          description: Movies fetched succesfully.
+          content: 
+            application/json: 
+              schema: 
+                type: array
+                items: 
+                  $ref: "#/components/schemas/Movie"
+        '404':
+          description: Error  
+
+  /movies/:id:
+    get:
+      tags:
+        - movies
+      summary: lists all the movies alongside their opening crawls
+      operationId: listMovies
+      description: |
+        This endpoint lists all the movies available on the API alongside their opening crawls and comment counts.
+        |
+      responses:
+        '200':
+          description: Movies fetched succesfully.
+          content: 
+            application/json: 
+              schema: 
+                type: array
+                items: 
+                  $ref: "#/components/schemas/Movie"
+        '404':
+          description: Error
+
+  /:movieId/comment:
+    post:
+      tags:
+        - comments
+      summary: add comment to a movie.
+      operationId: addComment
+      description: |
+        This endpoint adds a comment to a movie with a specified movie id.
+        |
+      responses:
+        '201':
+          description: Comment added successfully.
+          content: 
+            application/json: 
+              schema:
+                type: object
+                items: 
+                  $ref: "#/components/schemas/Comment"
+        '404':
+          description: No movie id in the database.
+  
+  /:movieId/comments:
+    get:
+      tags:
+        - comments
+      summary: get movie comments.
+      operationId: listComment
+      description: |
+        This endpoint lists the comments for a movie
+        |
+      responses:
+        '200':
+          description: Comment added successfully.
+          content: 
+            application/json: 
+              schema:
+                type: object
+                items: 
+                  $ref: "#/components/schemas/Comment"
+        '404':
+          description: No movie id in the database.
+  
+  /characters:
+    get:
+      tags:
+        - characters
+      summary: list the characters in the API.
+      operationId: listCharacters
+      description: List the characters in the movie
+      responses:
+        '200':
+          description: Characters listed successfully.
+          content: 
+            application/json: 
+              schema:
+                type: object
+                items: 
+                  $ref: "#/components/schemas/Character"  
+
+components:
+  schemas:
+    Movie:
+      type: object
+      properties: 
+        id:
+          type: number
+        title: 
+          type: string
+        release_date:
+          type: date
+        opening_crawl: 
+          type: string
+        _count:
+          type: object
+          properties: 
+            comments: 
+              type: number
+    Comment: 
+      type: object
+      properties: 
+        id: 
+          type: number
+        comment: 
+          type: string
+        ip_address:
+          type: string
+        movieId:
+          type: number
+        createdAt: 
+          type: date
+    Character:
+      type: object
+      properties: 
+        id: 
+          type: number
+        name: 
+          type: string
+        gender: 
+          type: string
+        height: 
+          type: string
