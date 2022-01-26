@@ -1,6 +1,7 @@
 {
   "scripts": {
     "watch": "tsc -w",
+    "build": "rm -rf dist/ && tsc",
     "dev": "nodemon dist/src/server.js",
     "prod": "node dist/src/server.js",
     "prisma:generate": "npx prisma generate",
