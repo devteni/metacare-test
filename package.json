@@ -2,10 +2,14 @@
   "scripts": {
     "watch": "tsc -w",
     "dev": "nodemon dist/src/server.js",
+    "prod": "node dist/src/server.js",
     "prisma:generate": "npx prisma generate",
     "migrate": "npx prisma migrate dev",
     "db:seed": "npx prisma db seed",
     "lint": "eslint . --ext .ts"
+  },
+  "engines": {
+    "yarn": "1.22.17"
   },
   "dependencies": {
     "@prisma/client": "^3.8.1",
